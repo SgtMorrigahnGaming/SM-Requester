@@ -1,0 +1,74 @@
+/* Minimal placeholder styling — will get real design pass later. */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: transparent;
+  color: #fff;
+}
+
+.panel {
+  padding: 12px;
+}
+
+.panel h1 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+.request-form {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.request-form input {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #444;
+}
+
+.request-form__priority {
+  background: #9147ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.queue-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.queue-entry {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.queue-entry--bits {
+  border-left: 3px solid #9147ff;
+}
+
+.queue-entry__track {
+  font-weight: 600;
+}
+
+.queue-entry__artist,
+.queue-entry__requester {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.empty {
+  opacity: 0.7;
+  font-size: 13px;
+}

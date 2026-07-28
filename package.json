@@ -1,0 +1,20 @@
+{
+  "name": "sm-requester",
+  "private": true,
+  "description": "Open Source Twitch plugin to request songs using channel points or bits for priority",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:ebs": "npm run dev --workspace=packages/ebs",
+    "dev:extension": "npm run dev --workspace=packages/extension",
+    "dev:certs": "npm run dev:certs --workspace=packages/ebs && npm run dev:certs --workspace=packages/extension",
+    "docker:up": "docker compose up",
+    "docker:build": "docker compose build",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
