@@ -1,0 +1,17 @@
+# Production image: builds the panel as static files (as Twitch Extensions
+# require) and serves them with a minimal nginx. VITE_EBS_BASE_URL is baked
+# into the JS bundle at build time — rebuild the image if it changes.
+FROM node:20-alpine AS build
+WORKDIR /app
+ARG VITE_EBS_BASE_URL=https://smrequester.morrigahngaming.no/api
+ENV VITE_EBS_BASE_URL=$VITE_EBS_BASE_URL
+COPY package.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=build /app/dist/panel /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80

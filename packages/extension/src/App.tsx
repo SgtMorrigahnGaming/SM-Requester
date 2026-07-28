@@ -3,10 +3,11 @@ import { onAuthorized, onTransactionComplete, useBits } from "./twitch/twitchExt
 import { QueueList } from "./components/QueueList";
 import { RequestForm } from "./components/RequestForm";
 
-// TODO: move to an env-driven config once we have real deploy targets.
-// https is required once this panel is embedded in Twitch's HTTPS page —
-// see the mixed-content note in packages/ebs/src/index.ts.
-const EBS_BASE_URL = "https://localhost:8081";
+// In prod this is baked in at build time via VITE_EBS_BASE_URL (set as a
+// Docker build arg — see packages/extension/Dockerfile.prod). Locally it
+// falls back to the dev EBS over HTTPS (see the mixed-content note in
+// packages/ebs/src/index.ts).
+const EBS_BASE_URL = import.meta.env.VITE_EBS_BASE_URL ?? "https://localhost:8091";
 
 interface QueueEntry {
   id: string;

@@ -9,3 +9,4 @@ build/
 *.sqlite
 .vite/
 certs/
+apply*

@@ -1,0 +1,36 @@
+# Example nginx server block for smrequester.morrigahngaming.no
+#
+# Assumes TLS/certbot is already handled elsewhere for this subdomain (either
+# in this same block or a separate one you already have) — this just shows
+# the two proxy routes it needs. Order matters: the /api/ location must be
+# matched before the catch-all `/`.
+
+server {
+    listen 443 ssl;
+    server_name smrequester.morrigahngaming.no;
+
+    # ssl_certificate     /etc/letsencrypt/live/smrequester.morrigahngaming.no/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/smrequester.morrigahngaming.no/privkey.pem;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8081;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8082;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+server {
+    listen 80;
+    server_name smrequester.morrigahngaming.no;
+    return 301 https://$host$request_uri;
+}

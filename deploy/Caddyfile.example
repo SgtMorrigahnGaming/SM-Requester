@@ -1,0 +1,17 @@
+# Example Caddyfile snippet for smrequester.morrigahngaming.no
+#
+# Caddy handles TLS automatically (Let's Encrypt) — you likely already have
+# a block for this subdomain; this just adds the two routes it needs.
+#
+# Path order matters: the more specific /api/* block must come before the
+# catch-all so API requests don't fall through to the static panel.
+
+smrequester.morrigahngaming.no {
+    handle /api/* {
+        reverse_proxy 127.0.0.1:8081
+    }
+
+    handle {
+        reverse_proxy 127.0.0.1:8082
+    }
+}

@@ -97,9 +97,9 @@ QueueEntry
 1. **Persistence**: SQLite is enough to start (single-process, easy to ship); Postgres
    if this ever needs to run multi-tenant at scale. Leaning SQLite for now via Prisma
    so the swap later is cheap.
-2. **Hosting the EBS**: needs to be a real HTTPS endpoint reachable by Twitch's servers
-   and the extension panel — Fly.io/Render/a small VPS all work. Not needed until
-   we're ready to deploy.
+2. **Hosting the EBS**: resolved — deployed via Docker behind an existing
+   reverse proxy (Caddy/nginx) on a subdomain, path-split so
+   `/api/*` hits the EBS and `/` serves the panel. See `deploy/DEPLOY.md`.
 3. **Multi-broadcaster from day one, or single-broadcaster first?** Affects whether we
    build the Broadcaster/token model now or bolt it on later. Recommend: build the
    data model multi-tenant-shaped from the start (it's cheap), but only *support*

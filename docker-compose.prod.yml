@@ -1,0 +1,22 @@
+services:
+  ebs:
+    build:
+      context: ./packages/ebs
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    # Bound to loopback only — your host's Caddy/nginx reverse-proxies to
+    # this from the outside; it's never exposed directly.
+    ports:
+      - "127.0.0.1:8081:8081"
+    env_file:
+      - ./packages/ebs/.env
+
+  extension:
+    build:
+      context: ./packages/extension
+      dockerfile: Dockerfile.prod
+      args:
+        VITE_EBS_BASE_URL: https://smrequester.morrigahngaming.no/api
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8082:80"
